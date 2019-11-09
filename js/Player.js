@@ -30,6 +30,7 @@ class Player {
             .then(data => { 
                 
                 let skillsPool = [];
+                let tempArray = [];
 
                 function getRandomInt(min, max) {
         
@@ -69,11 +70,15 @@ class Player {
                 }
 
                 skillsPool.forEach(function(skill) {
-
+                    
                     fetch(skill.url)
                         .then(globalThis.handleErrors)
                         .then(response => response.json())
-                        .then(data => console.log(data.names[2].name));
+                        .then(data => { 
+                            tempArray.push(data);
+                        });
+
+                    skillsPool = tempArray;
 
                 });
 
