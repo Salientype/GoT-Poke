@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Vanessa's Domain</title>
         <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel = "stylesheet" href= "style.css"/>
 </head>
 
@@ -20,6 +20,38 @@
   FOURTH - CALL POKEMON API TO PULL MOVES
   FIFTH - ALL DATA THEN WILL POPULATE INTO THE DATA YOU SEE BELOW WITH API QUOTE
   -->
+<button type="button" class="btn btn-primary" data-toggle="modal" id="characterChooseButton" data-target="#pickCharacterModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="pickCharacterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Whose that Pokemon!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="input-group mb-3">
+                <select class="custom-select" id="selectCharacterContainer" onchange="getBackgroundInfo(this)">
+                </select>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                </div>
+              </div>
+              <div id="characterBackground" class="card">
+
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- BOTH CONTAINERS BELOW WILL BE HIDDEN -->
   <!--PC Player-->
@@ -95,9 +127,80 @@
           </blockquote>
       </div>
   </div>
-  
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+
+  var characterImages = new Object();
+  characterImages['Jon Snow']  = "img/Jon.jpg";
+  characterImages['Bronn'] = "img/Bronn.jpg";
+  characterImages['Tyrion Lannister']  = "img/Tyrion.jpg";
+  characterImages['Cersei Lannister']  = "img/Cersei.jpg";
+  characterImages['Petyr Baelish'] = "img/Petyr.jpg";
+  characterImages['Davos Seaworth'] = "img/Davos.jpg";
+  characterImages['Sandor Clegane'] = "img/Sandor.jpg";
+
+  $(document).ready(function() 
+  {
+    document.getElementById("characterChooseButton").addEventListener("click", getData);
+
+    //First Populate the modal with what the user will be able to select with click event
+
+    function getData()
+    {
+      const promise1 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Jon+Snow");
+      const promise2 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Cersei+Lannister");
+      const promise3 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Tyrion+Lannister");
+      const promise4 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Bronn");
+      const promise5 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Petyr+Baelish"); //Same as littlefinger
+      const promise6 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Davos+Seaworth");
+      const promise7 = axios.get("https://www.anapioficeandfire.com/api/characters?name=Sandor+Clegane"); //the hound
+
+
+      Promise.all([promise1, promise2, promise3,promise4,promise5,promise6,promise7]).then(function(characters) {
+        //When user clicks button and page NOT refreshed, it prevents the option values from duplicating
+        $('#selectCharacterContainer')
+          .find('option')
+          .remove()
+          .end()
+          .append('<option value="Choose">Choose Character...</option>')
+          .val('Choose Character...');
+
+        var selectOptions = characters.forEach( function(value,index)
+        {
+          $('#selectCharacterContainer').append(`<option value=${value.data[0].name.replace(" ", "_")}>${value.data[0].name}</option>`);
+        }); 
+      });
+    }
+
+  });
+
+
+
+
+  function getBackgroundInfo(data)
+  {
+    var formatValue = data.value.replace("_", " ");
+    axios.get(`https://www.anapioficeandfire.com/api/characters?name=${formatValue}`).then( function(response) {
+        var populateBGInfo = `<img class="card-img-top" src="${characterImages[formatValue]}" alt="Card image cap" width=400 height=350>
+                  <div class="card-body">
+                    <h5 class="card-title">${response.data[0].titles[0] || "Titleless"}</h5>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Born: ${response.data[0].born}</li>
+                    <li class="list-group-item">Culture: ${response.data[0].culture || 'UNKNOWN'}</li>
+                    <li class="list-group-item">${response.data[0].gender}</li>
+                  </ul>`;
+
+        document.getElementById("characterBackground").innerHTML = populateBGInfo;
+
+    });
+  }
+
+  //Next, once user chooses a character with onchange event, a mini card will show small data about the character.
+</script>
 </body>
 </html>
