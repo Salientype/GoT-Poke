@@ -24,7 +24,7 @@ class Player {
 
     getSkillsPool = () => {
 
-        fetch('https://pokeapi.co/api/v2/move-category/0/')
+        fetch('https://pokeapi.co/api/v2/move-damage-class/2/')
             .then(this.handleErrors)
             .then(response => response.json())
             .then(data => { 
@@ -43,7 +43,7 @@ class Player {
 
                     if (skillFromPool == newSkill) {
 
-                        newSkill = data.moves[getRandomInt(0, 331)];
+                        newSkill = data.moves[getRandomInt(0, 293)];
                         killSkillDuplicate(skillFromPool, newSkill);
 
                     } else {
@@ -56,7 +56,7 @@ class Player {
 
                 for(let i = 0; i < 40; i++) {
                     
-                    let skill = data.moves[getRandomInt(0, 331)];
+                    let skill = data.moves[getRandomInt(0, 293)];
 
                     skillsPool.forEach(function(obj) {
                         
