@@ -41,7 +41,7 @@ class Player {
                 
                 function killSkillDuplicate(skillFromPool, newSkill) {
 
-                    if (skillFromPool == newSkill) {
+                    if (skillFromPool.url == newSkill.url) {
 
                         newSkill = data.moves[getRandomInt(0, 293)];
                         killSkillDuplicate(skillFromPool, newSkill);
@@ -54,19 +54,28 @@ class Player {
 
                 }
 
-                for(let i = 0; i < 40; i++) {
+                for(let i = 0; i < 28; i++) {
                     
-                    let skill = data.moves[getRandomInt(0, 293)];
+                    let newSkill = data.moves[getRandomInt(0, 293)];
 
-                    skillsPool.forEach(function(obj) {
+                    skillsPool.forEach(function(skill) {
                         
-                        killSkillDuplicate(obj, skill);
+                        killSkillDuplicate(skill, newSkill);
                     
                     });
 
-                    skillsPool.push(skill);
+                    skillsPool.push(newSkill);
 
                 }
+
+                skillsPool.forEach(function(skill) {
+
+                    fetch(skill.url)
+                        .then(globalThis.handleErrors)
+                        .then(response => response.json())
+                        .then(data => console.log(data.names[2].name));
+
+                });
 
                 console.log(skillsPool);
         
