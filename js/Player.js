@@ -24,14 +24,14 @@ class Player {
 
     getSkillsPool = () => {
 
-        fetch('https://pokeapi.co/api/v2/move-damage-class/2/')
+        fetch('https://pokeapi.co/api/v2/move-category/0/')
             .then(this.handleErrors)
             .then(response => response.json())
             .then(data => {
 
                 let skillsPool = [];
                 let tempArray = [];
-                
+
                 const skillsPoolTable = document.createElement('table');
                 const skillsPoolTableSetup = `
                 <thead>
@@ -68,32 +68,38 @@ class Player {
 
                 function killSkillDuplicate(skillFromPool, newSkill) {
 
-                    if (skillFromPool.url == newSkill.url) {
-
-                        newSkill = data.moves[getRandomInt(0, 293)];
-                        killSkillDuplicate(skillFromPool, newSkill);
-
-                    } else {
+                    if (skillFromPool != newSkill) {
 
                         return newSkill;
 
+                    } else {
+
+                        newSkill = data.moves[getRandomInt(0, 330)];
+                        
+                        return newSkill;
                     }
 
                 }
 
                 for (let i = 0; i < 28; i++) {
 
-                    let newSkill = data.moves[getRandomInt(0, 293)];
+                    let newSkill = data.moves[getRandomInt(0, 330)];
 
-                    skillsPool.forEach(function (skill) {
+                    if (skillsPool.length != 0) {
 
-                        killSkillDuplicate(skill, newSkill);
+                        skillsPool.forEach(function (skill) {
+ 
+                            newSkill = killSkillDuplicate(skill, newSkill);
+                            
+                        });
 
-                    });
+                    }
 
                     skillsPool.push(newSkill);
 
                 }
+
+                console.log(skillsPool);
 
                 skillsPool.forEach(function (skill) {
 
