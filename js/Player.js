@@ -29,64 +29,15 @@ class Player {
 
         }
 
-        function getRandomInt(min, max) {
-
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-
-        }
-
         fetch('https://pokeapi.co/api/v2/move-category/0/')
 
             .then(handleErrors)
             .then(response => response.json())
             .then(data => {
 
-                function getSkill () {
+                // console.log(data.moves);
 
-                    return data.moves[getRandomInt(0, 330)];
-
-                }
-                
-                function killSkillDuplicate(skillFromPool, newSkill) {
-
-                    if (skillFromPool != newSkill) {
-
-                        return newSkill;
-
-                    } else {
-
-                        newSkill = getSkill();
-                        return killSkillDuplicate(skillFromPool, newSkill);
-
-                    }
-
-                }
-
-                for (let i = 0; i < 330; i++) {
-
-                    let newSkill = getSkill();
-
-                    if (skillsPool.length != 0) {
-
-                        skillsPool.forEach(function (skill) {
-        
-                            killSkillDuplicate(skill, newSkill);
-
-                        });
-
-                        skillsPool.push(newSkill);
-
-                    } else {
-
-                        skillsPool.push(newSkill);
-
-                    }
-
-                }
-
-                console.log(skillsPool);
+                skillsPool = data.moves;
 
                 skillsPool.forEach(function (skill) {
 
