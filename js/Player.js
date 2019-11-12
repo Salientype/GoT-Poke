@@ -54,8 +54,7 @@ class Player {
                     if (skillFromPool == newSkill) {
 
                         newSkill = getSkill();
-                        newSkill = killSkillDuplicate(skillFromPool, newSkill);
-                        return newSkill;
+                        return killSkillDuplicate(skillFromPool, newSkill);
 
                     } else {
 
@@ -65,7 +64,7 @@ class Player {
 
                 }
 
-                for (let i = 0; i < 330; i++) {
+                for (let i = 0; i < 128; i++) {
 
                     let newSkill = getSkill();
 
