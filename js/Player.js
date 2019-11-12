@@ -29,15 +29,64 @@ class Player {
 
         }
 
+        function getRandomInt(min, max) {
+
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+
+        }
+
         fetch('https://pokeapi.co/api/v2/move-category/0/')
 
             .then(handleErrors)
             .then(response => response.json())
             .then(data => {
 
-                // console.log(data.moves);
+                function getSkill () {
 
-                skillsPool = data.moves;
+                    return data.moves[getRandomInt(0, 330)];
+
+                }
+                
+                function killSkillDuplicate(skillFromPool, newSkill) {
+
+                    if (skillFromPool != newSkill) {
+
+                        return newSkill;
+
+                    } else {
+
+                        newSkill = getSkill();
+                        killSkillDuplicate(skillFromPool, newSkill);
+
+                    }
+
+                }
+
+                for (let i = 0; i < 330; i++) {
+
+                    let newSkill = getSkill();
+
+                    if (skillsPool.length != 0) {
+
+                        skillsPool.forEach(function (skill) {
+        
+                            killSkillDuplicate(skill, newSkill);
+
+                        });
+
+                        skillsPool.push(newSkill);
+
+                    } else {
+
+                        skillsPool.push(newSkill);
+
+                    }
+
+                }
+
+                console.log(skillsPool);
 
                 skillsPool.forEach(function (skill) {
 
@@ -51,7 +100,6 @@ class Player {
                                 data.accuracy != 100 &&
                                 data.power != null &&
                                 data.pp != null &&
-                                data.type.name == 'normal' &&
                                 data.target.name == 'selected-pokemon'
                                 ) {
 
