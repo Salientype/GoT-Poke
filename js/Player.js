@@ -54,11 +54,14 @@ class Player {
                     if (skillFromPool == newSkill) {
 
                         newSkill = getSkill();
-                        killSkillDuplicate(skillFromPool, newSkill);
+                        newSkill = killSkillDuplicate(skillFromPool, newSkill);
+                        return newSkill;
+
+                    } else {
+
+                        return newSkill;
 
                     }
-
-                    return newSkill;
 
                 }
 
