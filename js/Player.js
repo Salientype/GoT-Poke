@@ -51,16 +51,14 @@ class Player {
                 
                 function killSkillDuplicate(skillFromPool, newSkill) {
 
-                    if (skillFromPool != newSkill) {
-
-                        return newSkill;
-
-                    } else {
+                    if (skillFromPool == newSkill) {
 
                         newSkill = getSkill();
                         killSkillDuplicate(skillFromPool, newSkill);
 
                     }
+
+                    return newSkill;
 
                 }
 
@@ -72,9 +70,9 @@ class Player {
 
                         skillsPool.forEach(function (skill) {
         
-                            killSkillDuplicate(skill, newSkill);
+                            newSkill = killSkillDuplicate(skill, newSkill);
 
-                        });
+                        })
 
                         skillsPool.push(newSkill);
 
