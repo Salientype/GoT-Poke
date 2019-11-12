@@ -83,8 +83,10 @@ class Player {
                         .then(handleErrors)
                         .then(response => response.json())
                         .then(data => {
-
-                            selectedSkillsPool.push(data);
+                            
+                            if (data.accuracy != null) {
+                                selectedSkillsPool.push(data);
+                            }
 
                         });
 
