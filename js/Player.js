@@ -19,8 +19,10 @@ class Player {
         function handleErrors(response) {
 
             if (!response.ok) {
+
                 console.log('The raven from Westeros never came...');
                 throw Error(response.statusText);
+
             }
 
             return response;
@@ -41,6 +43,12 @@ class Player {
             .then(response => response.json())
             .then(data => {
 
+                function getSkill () {
+
+                    return data.moves[getRandomInt(0, 330)];
+
+                }
+                
                 function killSkillDuplicate(skillFromPool, newSkill) {
 
                     if (skillFromPool != newSkill) {
@@ -49,32 +57,36 @@ class Player {
 
                     } else {
 
-                        newSkill = data.moves[getRandomInt(0, 330)];
-                        return newSkill;
+                        newSkill = getSkill();
+                        return killSkillDuplicate(skillFromPool, newSkill);
 
                     }
 
                 }
 
-                for (let i = 0; i < 28; i++) {
+                for (let i = 0; i < 330; i++) {
 
-                    let newSkill = data.moves[getRandomInt(0, 330)];
+                    let newSkill = getSkill();
 
                     if (skillsPool.length != 0) {
 
                         skillsPool.forEach(function (skill) {
-
-                            newSkill = killSkillDuplicate(skill, newSkill);
+        
+                            killSkillDuplicate(skill, newSkill);
 
                         });
 
-                    }
+                        skillsPool.push(newSkill);
 
-                    skillsPool.push(newSkill);
+                    } else {
+
+                        skillsPool.push(newSkill);
+
+                    }
 
                 }
 
-                // console.log(skillsPool);
+                console.log(skillsPool);
 
                 skillsPool.forEach(function (skill) {
 
@@ -83,9 +95,17 @@ class Player {
                         .then(handleErrors)
                         .then(response => response.json())
                         .then(data => {
-                            
-                            if (data.accuracy != null) {
-                                selectedSkillsPool.push(data);
+
+                            if (data.accuracy != null &&
+                                data.accuracy != 100 &&
+                                data.power != null &&
+                                data.pp != null &&
+                                data.type.name == 'normal' &&
+                                data.target.name == 'selected-pokemon'
+                                ) {
+
+                                selectedSkillsPool.push({name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp});
+
                             }
 
                         });
