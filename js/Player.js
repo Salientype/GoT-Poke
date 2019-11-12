@@ -43,12 +43,12 @@ class Player {
             .then(response => response.json())
             .then(data => {
 
-                function getSkill () {
+                function getSkill() {
 
                     return data.moves[getRandomInt(0, 330)];
 
                 }
-                
+
                 function killSkillDuplicate(skillFromPool, newSkill) {
 
                     if (skillFromPool == newSkill) {
@@ -64,14 +64,14 @@ class Player {
 
                 }
 
-                for (let i = 0; i < 128; i++) {
+                for (let i = 0; i < 100; i++) {
 
                     let newSkill = getSkill();
 
                     if (skillsPool.length != 0) {
 
                         skillsPool.forEach(function (skill) {
-        
+
                             newSkill = killSkillDuplicate(skill, newSkill);
 
                         })
@@ -86,8 +86,6 @@ class Player {
 
                 }
 
-                console.log(skillsPool);
-
                 skillsPool.forEach(function (skill) {
 
                     fetch(skill.url)
@@ -101,9 +99,9 @@ class Player {
                                 data.power != null &&
                                 data.pp != null &&
                                 data.target.name == 'selected-pokemon'
-                                ) {
+                            ) {
 
-                                selectedSkillsPool.push({name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp});
+                                selectedSkillsPool.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
 
                             }
 
