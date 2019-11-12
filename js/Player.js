@@ -45,7 +45,7 @@ class Player {
 
                 function getSkill() {
 
-                    return data.moves[getRandomInt(0, 330)];
+                    return data.moves[getRandomInt(0, (data.moves.length - 1))];
 
                 }
 
