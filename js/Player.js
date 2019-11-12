@@ -11,10 +11,19 @@ class Player {
 
     }
 
+    getRandomInt(min, max) {
+
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+
+    }
+
     getSkillsPool = () => {
 
         let skillsPool = [];
         let selectedSkillsPool = [];
+        const getRandomInt = this.getRandomInt;
 
         function handleErrors(response) {
 
@@ -26,14 +35,6 @@ class Player {
             }
 
             return response;
-
-        }
-
-        function getRandomInt(min, max) {
-
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
 
         }
 
@@ -115,21 +116,33 @@ class Player {
 
     }
 
-    skill1 = (skill) => {
+    skill1 = () => {
+
+        // const getRandomInt = this.getRandomInt;
+        let skills = this.getSkillsPool();
+        
+        // const randomSkill = this.getRandomInt(0, arrayOfSkills.length);
+        // const skill = [randomSkill]arrayOfSkills;
+
+        return skgetSkillsPool().length;
+
+    }
+
+    skill2 = (arrayOfSkills) => {
 
         return skill;
 
     }
 
-    skill2 = (skill) => {
+    skill3 = (arrayOfSkills) => {
+
+        return skill;
 
     }
 
-    skill3 = (skill) => {
+    skill4 = (arrayOfSkills) => {
 
-    }
-
-    skill4 = (skill) => {
+        return skill;
 
     }
 

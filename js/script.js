@@ -29,4 +29,11 @@ const skillsPoolTableSetup =`
 
 skillsPoolTable.innerHTML = skillsPoolTableSetup;
 
-console.log(frodo.skillsPool);
+//console.log(frodo.skillsPool);
+
+let frodoSkillsPool = [];
+frodoSkillsPool = frodo.skillsPool;
+
+// console.log(frodoSkillsPool);
+
+console.log(frodo.skill1());
