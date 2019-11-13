@@ -47,7 +47,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="populateBoard(this)">Start</button>
+        <button id="startGame" type="button" class="btn btn-primary" onclick="populateBoard()">Start</button>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
   <!--PC Player-->
   <div class="container">
     <div class="row">
-        <h4>Title</h4>
+        <h4 id="pcTitle">Title</h4>
         <div class="progress health" style="width:100%">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">HP</div>
         </div>
@@ -79,17 +79,7 @@
 
         <!--Populate User Data Game of Throne API THIS NEEDS TO BE RANDOMIZED PC HERE-->
         <div>
-          <div class="card ml-auto card w-30" style="width: 18rem">
-            <img src="img/Tyrion.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <ul>
-                <li>NAME</li>
-                <li>GENDER</li>
-              </ul>
-              <p class="card-text">
-                You won't even see me coming
-              </p>
-            </div>
+          <div id="randompcplayer" class="card ml-auto card w-30" style="width: 18rem">
           </div>
         </div>
         <!-- END Game of Thrones API-->
@@ -99,7 +89,7 @@
   <!--REGULAR PLAYER-->
   <div class="container">
       <div class="row">
-        <h4>Title</h4>
+        <h4 id="regplayertitle">Title</h4>
         <div class="progress health" style="width:100%;">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">HP</div>
         </div>
@@ -108,17 +98,7 @@
         </div>
 
         <!--Populate User Data Game of Throne API THIS NEEDS TO BE REG PC HERE-->
-        <div class="card" style="width: 18rem">
-          <img src="img/Arya.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <ul>
-              <li>NAME</li>
-              <li>GENDER</li>
-            </ul>
-            <p class="card-text">
-              You won't even see me coming
-            </p>
-          </div>
+        <div id="regplayer" class="card" style="width: 18rem">
         </div>
         <!-- END OF REG PC CARD HERE-->
 
@@ -207,29 +187,71 @@
   }
 
   //Populate the card data board 
-  function populateBoard(data)
+  function populateBoard()
   {
-    var formatValue = data.value.replace("_", " ");
-    axios.get(`https://www.anapioficeandfire.com/api/characters?name=${formatValue}`).then( function(response) {
-        var populateBGInfo = `<img class="card-img-top" src="${characterImages[formatValue]}" alt="Card image cap" width=400 height=350>
-                  <div class="card-body">
-                    <h5 class="card-title">${response.data[0].titles[0] || "Titleless"}</h5>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Born: ${response.data[0].born}</li>
-                    <li class="list-group-item">Culture: ${response.data[0].culture || 'UNKNOWN'}</li>
-                    <li class="list-group-item">${response.data[0].gender}</li>
-                  </ul>`;
+    var currentSelectedCharacter = document.getElementById("selectCharacterContainer").value;
+    var formatValue = currentSelectedCharacter.replace("_", " ");
+    var firstName = currentSelectedCharacter.split("_")[0];
 
-        document.getElementById("characterBackground").innerHTML = populateBGInfo;
+    var randomPCName = randomNPC();
+    var randomPCNameValue = randomPCName.replace("_", " ");
+    var randomPCFirstName = randomPCName.split(" ")[0];
 
+    //Exceptions for Petyr and Sandor. The Quote API uses Littlefinger and Hound.
+    if(randomPCFirstName == 'Sandor') { randomPCFirstName = 'Hound';}
+    if(randomPCFirstName == 'Petyr') { randomPCFirstName = 'Littlefinger';}
+    if(firstName == 'Sandor') {firstName = 'Hound';}
+    if(firstName == 'Petyr') {firstName = 'Littlefinger';}
+
+    const promise1 = axios.get(`https://www.anapioficeandfire.com/api/characters?name=${formatValue}`); //First and Lastname with space
+    const promise2 = axios.get(`https://got-quotes.herokuapp.com/quotes?char=${firstName}`); //Requires first name for the API
+    const promise3 = axios.get(`https://www.anapioficeandfire.com/api/characters?name=${randomPCNameValue}`); //First and Lastname with space, random PC
+    const promise4 = axios.get(`https://got-quotes.herokuapp.com/quotes?char=${randomPCFirstName}`); //Requires first name for the API 
+
+    Promise.all([promise1,promise2,promise3,promise4]).then( function(response) {
+  
+        var populateRegPlayerBoardGame = `<img src="${characterImages[formatValue]}" class="card-img-top" alt="GOT Character">
+          <div class="card-body">
+            <ul>
+              <li>${formatValue}</li>
+              <li>${response[0].data[0].gender}</li>
+            </ul>
+            <p class="card-text playercard">
+              ${response[1].data.quote}
+            </p>
+          </div>`;
+
+          var populateRandomPCGame = `<img src="${characterImages[randomPCNameValue]}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <ul>
+                <li>${randomPCNameValue}</li>
+                <li>${response[2].data[0].gender}</li>
+              </ul>
+              <p class="card-text playercard">
+                  ${response[3].data.quote}
+              </p>
+            </div>
+          </div>
+        </div>`;
+
+        document.getElementById("regplayertitle").innerHTML = response[0].data[0].titles[0] || "Titleless";
+        document.getElementById("regplayer").innerHTML = populateRegPlayerBoardGame;
+
+        document.getElementById("pcTitle").innerHTML = response[2].data[0].titles[0] || "Titleless";
+        document.getElementById("randompcplayer").innerHTML = populateRandomPCGame;
     });
+        //Dismiss Modal
+        document.getElementById("startGame").setAttribute("data-dismiss", "modal");
   }
 
   //Randomized PC Choice here
-  function randomChoice(data)
+  function randomNPC()
   {
+    var characterArray = Object.keys(characterImages);
+    var characterLength = Object.keys(characterImages).length;
+    var chosenCharacter = Math.floor(Math.random()*Math.floor(characterLength));
 
+    return characterArray[chosenCharacter];
   }
 
 

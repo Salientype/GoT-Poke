@@ -39,12 +39,11 @@ body {
   padding: 5px;
 }
 
-.card-text {
-  font-size: 15px;
-  color: white;
-  height: 100px;
-  background: #6B8E23;
+.playercard{
 
+  color: white;
+  background: #6B8E23;
+  height:auto;
 }
 
 .stats {
