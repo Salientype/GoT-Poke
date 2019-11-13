@@ -8,6 +8,11 @@ class Player {
         this.title = title;
         this.gender = gender;
         this.skillsPool = this.getSkillsPool();
+        this.skill1 = this.skill1();
+        this.skill2 = this.skill2();
+        this.skill3 = this.skill3();
+        this.skill4 = this.skill4();
+        this.mySkills = this.getFinalSkills(this.skillsPool);
 
     }
 
@@ -19,24 +24,24 @@ class Player {
 
     }
 
+    handleErrors(response) {
+
+        if (!response.ok) {
+
+            console.log('The raven from Westeros never came...');
+            throw Error(response.statusText);
+
+        }
+
+        return response;
+
+    }
+
     getSkillsPool = () => {
 
         let skillsPool = [];
-        let selectedSkillsPool = [];
         const getRandomInt = this.getRandomInt;
-
-        function handleErrors(response) {
-
-            if (!response.ok) {
-
-                console.log('The raven from Westeros never came...');
-                throw Error(response.statusText);
-
-            }
-
-            return response;
-
-        }
+        const handleErrors = this.handleErrors;
 
         fetch('https://pokeapi.co/api/v2/move-category/0/')
 
@@ -86,63 +91,69 @@ class Player {
                     }
 
                 }
-
-                skillsPool.forEach(function (skill) {
-
-                    fetch(skill.url)
-
-                        .then(handleErrors)
-                        .then(response => response.json())
-                        .then(data => {
-
-                            if (data.accuracy != null &&
-                                data.accuracy != 100 &&
-                                data.power != null &&
-                                data.pp != null &&
-                                data.target.name == 'selected-pokemon'
-                            ) {
-
-                                selectedSkillsPool.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
-
-                            }
-
-                        });
-
-                });
-
             });
 
-        return selectedSkillsPool;
+        //console.log(skillsPool);
+        return skillsPool;
 
     }
 
-    skill1 = () => {
+    getFinalSkills = (skillsPool) => {
 
-        // const getRandomInt = this.getRandomInt;
-        let skills = this.getSkillsPool();
-        
-        // const randomSkill = this.getRandomInt(0, arrayOfSkills.length);
-        // const skill = [randomSkill]arrayOfSkills;
+        const selectedSkills = [];
 
-        return skgetSkillsPool().length;
+        skillsPool.forEach(function (skill) {
+
+            fetch(skill.url)
+
+                .then(handleErrors)
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.accuracy != null &&
+                        data.accuracy != 100 &&
+                        data.power != null &&
+                        data.pp != null &&
+                        data.target.name == 'selected-pokemon'
+                    ) {
+
+                        //console.log(selectedSkillsPool.length);
+                        selectedSkills.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
+                        console.log(selectedSkills.length);
+
+                    }
+
+                });
+
+        });
+
+        return selectedSkills;
+
+    };
+
+
+
+    skill1 = (array) => {
+
+        return array;
 
     }
 
     skill2 = (arrayOfSkills) => {
 
-        return skill;
+        return arrayOfSkills;
 
     }
 
     skill3 = (arrayOfSkills) => {
 
-        return skill;
+        return arrayOfSkills;
 
     }
 
     skill4 = (arrayOfSkills) => {
 
-        return skill;
+        return arrayOfSkills;
 
     }
 
