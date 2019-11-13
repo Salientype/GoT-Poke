@@ -13,6 +13,9 @@ font-size: 30px;
   margin: auto;
 
 }
+h1{
+  color: white;
+}
 
 p1 {
   color: white;
@@ -21,14 +24,16 @@ p1 {
   padding-right: 60px;
 
 }
-
+.row {
+  background-color: black;
+}
 
 ul {
   background-color: #D2B48C;
 }
 
 body {
-  background-image: url("Bthrone.jpg");
+background-image: url(http://kiwaradio.com/files/fire-1008926_1280-1000x666.jpg);
 
 }
 
@@ -52,10 +57,4 @@ body {
 
 }
 
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
+
