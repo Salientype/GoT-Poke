@@ -13,6 +13,9 @@ font-size: 30px;
   margin: auto;
 
 }
+h1{
+  color: white;
+}
 
 p1 {
   color: white;
@@ -27,10 +30,7 @@ ul {
   background-color: #D2B48C;
 }
 
-body {
-  background-image: url("Bthrone.jpg");
 
-}
 
 .select {
   display: inline-block;
@@ -50,6 +50,17 @@ body {
 .stats {
   list-style: none;
 
-
-
 }
+
+/* Style the video: 100% width and height to cover the entire window */
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -9999;
+}
+
+
