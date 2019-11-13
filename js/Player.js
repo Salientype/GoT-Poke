@@ -7,13 +7,9 @@ class Player {
         this.name = name;
         this.title = title;
         this.gender = gender;
-        this.skillsPool = this.getSkillsPool();
-        this.skill1 = this.skill1();
-        this.skill2 = this.skill2();
-        this.skill3 = this.skill3();
-        this.skill4 = this.skill4();
-        this.mySkills = this.getFinalSkills(this.skillsPool);
-
+        this.mySkillsPool = this.getSkillsPool();
+        this.selectedSkills = this.getFinalSkills();
+        
     }
 
     getRandomInt(min, max) {
@@ -40,6 +36,7 @@ class Player {
     getSkillsPool = () => {
 
         let skillsPool = [];
+        let tempArray = [];
         const getRandomInt = this.getRandomInt;
         const handleErrors = this.handleErrors;
 
@@ -91,22 +88,33 @@ class Player {
                     }
 
                 }
+
+                console.log(skillsPool);
+                
+                skillsPool.forEach(function(skill, index) {
+
+                    tempArray.push(index[skill]);
+
+                });
+
             });
-
-        //console.log(skillsPool);
-        return skillsPool;
-
+            
+            return skillsPool;
     }
 
-    getFinalSkills = (skillsPool) => {
+    getFinalSkills = () => {
 
-        const selectedSkills = [];
+        const skillsPool = [];
+        const skillsArray = [];
+        const handleErrors = this.handleErrors;
+
+        // console.log(skillsPool);
 
         skillsPool.forEach(function (skill) {
 
             fetch(skill.url)
 
-                .then(handleErrors)
+                .then(handleErrors(response))
                 .then(response => response.json())
                 .then(data => {
 
@@ -114,12 +122,13 @@ class Player {
                         data.accuracy != 100 &&
                         data.power != null &&
                         data.pp != null &&
-                        data.target.name == 'selected-pokemon'
-                    ) {
+                        data.target.name == 'selected-pokemon') {
 
-                        //console.log(selectedSkillsPool.length);
-                        selectedSkills.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
-                        console.log(selectedSkills.length);
+                        skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
+
+                    } else {
+
+                        skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
 
                     }
 
@@ -127,7 +136,7 @@ class Player {
 
         });
 
-        return selectedSkills;
+        return skillsArray;
 
     };
 
