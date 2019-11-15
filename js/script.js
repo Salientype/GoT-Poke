@@ -1,5 +1,5 @@
 
-const frodo = new Player('Frodo', 'shire-folk', 'male');
+
 
 const skillsPoolTable = document.createElement('table');
 
@@ -28,5 +28,15 @@ const skillsPoolTableSetup =`
 `;
 
 skillsPoolTable.innerHTML = skillsPoolTableSetup;
-const mySkills = frodo.skillsPool; 
-console.log(frodo.mySkillsPool);
+let skillsArray = [];
+
+const frodo = new Player('Frodo', 'hobbit', 'male');
+frodo.fetchData('https://pokeapi.co/api/v2/move-category/0/', function(response) {
+    
+    skillsArray = response;
+    console.log(skillsArray);
+
+});
+
+setTimeout ( function() { console.log(skillsArray) }, 1000);
+

@@ -7,12 +7,10 @@ class Player {
         this.name = name;
         this.title = title;
         this.gender = gender;
-        this.mySkillsPool = this.getSkillsPool();
-        this.selectedSkills = this.getFinalSkills();
-        
+
     }
 
-    getRandomInt(min, max) {
+    static getRandomInt(min, max) {
 
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -20,7 +18,7 @@ class Player {
 
     }
 
-    handleErrors(response) {
+    static handleErrors(response) {
 
         if (!response.ok) {
 
@@ -30,6 +28,64 @@ class Player {
         }
 
         return response;
+
+    }
+
+
+    static killSkillDuplicate(skillFromPool, newSkill) {
+
+        if (skillFromPool == newSkill) {
+
+            newSkill = getSkill();
+            return killSkillDuplicate(skillFromPool, newSkill);
+
+        } else {
+
+            return newSkill;
+
+        }
+
+    }
+    
+    async fetchData(url, callback) {
+
+        const handleErrors = this.handleErrors;
+        const getRandomInt = this.getRandomInt;
+        let skillsArray = [];
+
+        await fetch(url)  // return fetch here
+            .then(handleErrors)
+            .then(response => response.json())
+            .then(response => response.moves)
+            .then(listOfMoves => { 
+                
+                    listOfMoves.forEach( async function(move) {
+                        await fetch(move.url)
+                        .then(handleErrors)
+                        .then(response => response.json())
+                        .then(data => {
+                            
+                            if (data.accuracy != null &&
+                                data.accuracy != 100 &&
+                                data.power != null &&
+                                data.pp != null &&
+                                data.target.name == 'selected-pokemon') {
+            
+                                    skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
+            
+                            }
+                        
+                        });
+
+                    });
+
+                    setTimeout ( function() { 
+                        
+                        console.log(skillsArray); 
+                
+                    }, 4000);
+
+            });
 
     }
 
@@ -90,16 +146,16 @@ class Player {
                 }
 
                 console.log(skillsPool);
-                
-                skillsPool.forEach(function(skill, index) {
+
+                skillsPool.forEach(function (skill, index) {
 
                     tempArray.push(index[skill]);
 
                 });
 
             });
-            
-            return skillsPool;
+
+        return skillsPool;
     }
 
     getFinalSkills = () => {
