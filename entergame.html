@@ -56,10 +56,10 @@
 </div>
 
 <!-- Video MP4 CSS -->
-<video autoplay="" muted="" loop="" id="myVideo">
-  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+ <video autoplay="" muted="" loop="" id="myVideo">
+  <source src="img/snowfallv2.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
-</video>
+</video> 
 
   <!-- BOTH CONTAINERS BELOW WILL BE HIDDEN -->
   <div id="board-container" style="display:none">
@@ -78,7 +78,7 @@
               <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
           </blockquote>
 
-          <div class="btn-group-vertical ml-auto" role="group" aria-label="Vertical button group">
+          <div class="btn-group-vertical ml-auto moves-container" role="group" aria-label="Vertical button group">
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
@@ -111,13 +111,14 @@
           </div>
           <!-- END OF REG PC CARD HERE-->
 
-          <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+          <div class="btn-group-vertical moves-container" role="group" aria-label="Vertical button group">
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
               <button type="button" class="btn btn-outline-primary btn-md">RUN</button>
           </div>
+          <!-- BLOCK QUOTE WILL CAUSE GAME TO BREAK IN MOBILE. SO WHEN MOBILE JUST HAVE THE MOVES POP UP NEAR THE PICTURE-->
             <blockquote class="blockquote text-center" style="width: 52%;margin-top: 127px;">
                 <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -200,6 +201,12 @@
   function populateBoard()
   {
     var currentSelectedCharacter = document.getElementById("selectCharacterContainer").value;
+    if(currentSelectedCharacter == 'Choose')
+    {
+      alert("Please choose a character!")
+      return;
+    }
+
     var formatValue = currentSelectedCharacter.replace("_", " ");
     var firstName = currentSelectedCharacter.split("_")[0];
 
@@ -222,22 +229,22 @@
   
         var populateRegPlayerBoardGame = `<img src="${characterImages[formatValue]}" class="card-img-top" alt="GOT Character">
           <div class="card-body">
-            <ul>
-              <li>${formatValue}</li>
+            <ul class="characternameblock shadow-sm p-1 mb-1 rounded text-center">
+              <li class="font-weight-bold">${formatValue}</li>
               <li>${response[0].data[0].gender}</li>
             </ul>
-            <p class="card-text playercard">
+            <p class="card-text playercard shadow rounded p-1 overflow-auto">
               ${response[1].data.quote}
             </p>
           </div>`;
 
           var populateRandomPCGame = `<img src="${characterImages[randomPCNameValue]}" class="card-img-top" alt="...">
             <div class="card-body">
-              <ul>
-                <li>${randomPCNameValue}</li>
+              <ul class="characternameblock shadow-sm p-1 mb-1 rounded text-center">
+                <li class="font-weight-bold">${randomPCNameValue}</li>
                 <li>${response[2].data[0].gender}</li>
               </ul>
-              <p class="card-text playercard">
+              <p class="card-text playercard shadow rounded p-1 overflow-auto">
                   ${response[3].data.quote}
               </p>
             </div>

@@ -1,10 +1,6 @@
-
-
-.content {
-font-size: 30px;
-
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 
 .button {
   border-radius: 50%;
@@ -16,7 +12,7 @@ font-size: 30px;
 
 p1 {
   color: white;
-  font-size: 30px;
+ 
   text-align: left;
   padding-right: 60px;
 
@@ -38,15 +34,25 @@ ul {
 .playercard{
 
   color: white;
-  background: #6B8E23;
-  height:auto;
+  background: #613127;
+  height:100px;
 }
 
-.stats {
-  list-style: none;
+h4#regplayertitle,#pcTitle {
+  background-color: #dcdcdc21;
+  color: whitesmoke;
+}
 
+.moves-container
+{
+  background-color:#ffffff8f;
+}
 
-
+.characternameblock
+{
+background-color: #b7a28b;
+list-style: none;
+padding:0px;
 }
 
 /* Style the video: 100% width and height to cover the entire window */
