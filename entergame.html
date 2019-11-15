@@ -204,6 +204,7 @@
     if(currentSelectedCharacter == 'Choose')
     {
       alert("Please choose a character!")
+      document.getElementById("startGame").setAttribute("data-dismiss", ""); //Prevents the modal from dismissing in restart mode
       return;
     }
 
