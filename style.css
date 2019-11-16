@@ -54,6 +54,30 @@ ul {
 
 /* Style the video: 100% width and height to cover the entire window */
 
+header {
+  position: relative;
+  background-color: black;
+  height: 75vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
 #myVideo {
   position: fixed;
   right: 0;
@@ -62,5 +86,9 @@ ul {
   min-height: 100%;
   z-index: -9999;
 }
-
+.row {
+  background-color: black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
 
