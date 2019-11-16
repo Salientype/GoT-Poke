@@ -34,26 +34,10 @@ class Player {
 
     async fetchData(url, callback) {
 
-        const getRandomInt = this.getRandomInt;
+        let getRandomInt = this.getRandomInt;
         const handleErrors = this.handleErrors;
         let skillsArray = [];
         let playerSkills = [];
-
-        function killSkillDuplicate(skillFromPool, newSkill) {
-
-            if (skillFromPool == newSkill) {
-
-                console.log("found duplicate");
-                newSkill = skillsArray[getRandomInt(0, skillsArray.length)];
-                killSkillDuplicate(skillFromPool, newSkill);
-
-            } else {
-
-                return newSkill;
-
-            }
-
-        }
 
         await fetch(url)
             .then(handleErrors)
@@ -83,7 +67,27 @@ class Player {
 
                 setTimeout(function () {
 
-                    //console.log(skillsArray);
+                    function getNewSkill() {
+
+                        return skillsArray[getRandomInt(0, skillsArray.length - 1)];
+
+                    }
+
+                    function killSkillDuplicate(skillFromPool, newSkill) {
+
+                        if (skillFromPool != newSkill) {
+
+                            return newSkill;
+
+                        } else {
+                            
+                            console.log("found duplicate");
+                            newSkill = getNewSkill();
+                            return killSkillDuplicate(skillFromPool, newSkill);
+
+                        }
+
+                    }
 
                     for (let i = 0; i < 4; i++) {
 
@@ -93,9 +97,9 @@ class Player {
 
                             playerSkills.forEach(function (skill) {
 
-                                killSkillDuplicate(skill, selectedSkill);
+                                selectedSkill = killSkillDuplicate(skill, selectedSkill);
 
-                            })
+                            });
 
                             playerSkills.push(selectedSkill);
 
