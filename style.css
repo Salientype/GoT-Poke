@@ -1,36 +1,27 @@
-
-
-.content {
-font-size: 30px;
-
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 
 .button {
   border-radius: 50%;
   width: 75px;
   height: 75px;
   margin: auto;
-
 }
-h1{
+
+h1 {
   color: white;
 }
 
 p1 {
   color: white;
-  font-size: 30px;
   text-align: left;
   padding-right: 60px;
-
 }
-
 
 ul {
   background-color: #D2B48C;
 }
-
-
 
 .select {
   display: inline-block;
@@ -39,17 +30,15 @@ ul {
   padding: 5px;
 }
 
-.card-text {
-  font-size: 15px;
+.playercard{
   color: white;
-  height: 100px;
-  background: #6B8E23;
-
+  background: #613127;
+  height:100px;
 }
 
-.stats {
-  list-style: none;
-
+h4#regplayertitle,#pcTitle {
+  background-color: #dcdcdc21;
+  color: whitesmoke;
 }
 
 /* Style the video: 100% width and height to cover the entire window */
@@ -78,14 +67,28 @@ header video {
   transform: translateX(-50%) translateY(-50%);
 }
 
+.moves-container
+{
+  background-color:#ffffff8f;
+}
+
+.characternameblock
+{
+background-color: #b7a28b;
+list-style: none;
+padding:0px;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
 #myVideo {
   position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
-  z-index: -9999;
+  z-index: -999;
 }
+
 .row {
   background-color: black;
   opacity: 0.5;
