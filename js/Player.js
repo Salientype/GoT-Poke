@@ -7,6 +7,7 @@ class Player {
         this.name = name;
         this.title = title;
         this.gender = gender;
+        this.skills;
 
     }
 
@@ -37,77 +38,78 @@ class Player {
         const handleErrors = this.handleErrors;
         let skillsArray = [];
         let playerSkills = [];
-        
+
         function killSkillDuplicate(skillFromPool, newSkill) {
 
             if (skillFromPool == newSkill) {
-    
-                newSkill = skillsArray[getRandomInt(0, skillsArray.length)]
-                return killSkillDuplicate(skillFromPool, newSkill);
-    
+
+                console.log("found duplicate");
+                newSkill = skillsArray[getRandomInt(0, skillsArray.length)];
+                killSkillDuplicate(skillFromPool, newSkill);
+
             } else {
-    
+
                 return newSkill;
-    
+
             }
-    
+
         }
 
-        await fetch(url)  // return fetch here
+        await fetch(url)
             .then(handleErrors)
             .then(response => response.json())
             .then(response => response.moves)
-            .then(listOfMoves => { 
-                
-                    listOfMoves.forEach( async function(move) {
-                        await fetch(move.url)
+            .then(listOfMoves => {
+
+                listOfMoves.forEach(async function (move) {
+                    await fetch(move.url)
                         .then(handleErrors)
                         .then(response => response.json())
                         .then(data => {
-                            
+
                             if (data.accuracy != null &&
                                 data.accuracy != 100 &&
                                 data.power != null &&
                                 data.pp != null &&
                                 data.target.name == 'selected-pokemon') {
-            
-                                    skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
-            
+
+                                skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
+
                             }
-                        
+
                         });
 
-                    });
+                });
 
-                    setTimeout ( function() { 
-                        
-                        //console.log(skillsArray);
-                        
-                        for (let i = 0; i < 4; i++) {
-                            
-                            let selectedSkill = skillsArray[getRandomInt(0, skillsArray.length)];
+                setTimeout(function () {
 
-                            if (playerSkills.length != 0) {
+                    //console.log(skillsArray);
 
-                                playerSkills.forEach(function (skill) {
-        
-                                    killSkillDuplicate(skill, selectedSkill);
-        
-                                })
-        
-                                playerSkills.push(selectedSkill);
-        
-                            } else {
-        
-                                playerSkills.push(selectedSkill);
-        
-                            }
+                    for (let i = 0; i < 4; i++) {
+
+                        let selectedSkill = skillsArray[getRandomInt(0, skillsArray.length)];
+
+                        if (playerSkills.length != 0) {
+
+                            playerSkills.forEach(function (skill) {
+
+                                killSkillDuplicate(skill, selectedSkill);
+
+                            })
+
+                            playerSkills.push(selectedSkill);
+
+                        } else {
+
+                            playerSkills.push(selectedSkill);
 
                         }
 
-                        console.log(playerSkills);
+                    }
 
-                    }, 4000);
+                    callback(playerSkills);
+
+                }, 4000);
 
             });
 

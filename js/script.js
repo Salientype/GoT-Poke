@@ -1,6 +1,3 @@
-
-
-
 const skillsPoolTable = document.createElement('table');
 
 const skillsPoolTableSetup =`
@@ -28,15 +25,17 @@ const skillsPoolTableSetup =`
 `;
 
 skillsPoolTable.innerHTML = skillsPoolTableSetup;
-let skillsArray = [];
+let skills;
 
-const frodo = new Player('Frodo', 'hobbit', 'male');
-frodo.fetchData('https://pokeapi.co/api/v2/move-category/0/', function(response) {
-    
-    skillsArray = response;
-    console.log(skillsArray);
+const playerHuman = new Player('Frodo', 'hobbit', 'male');
+
+playerHuman.fetchData('https://pokeapi.co/api/v2/move-category/0/', function(playerSkills) {
+
+    skills = playerSkills;
+    console.log(skills);
 
 });
 
-setTimeout ( function() { console.log(skillsArray) }, 1000);
+
+
 
