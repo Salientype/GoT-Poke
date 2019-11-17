@@ -7,7 +7,6 @@ class Player {
         this.name = name;
         this.title = title;
         this.gender = gender;
-        this.skills;
 
     }
 
@@ -116,30 +115,6 @@ class Player {
                 }, 4000);
 
             });
-
-    }
-
-    skill1 = (array) => {
-
-        return array;
-
-    }
-
-    skill2 = (arrayOfSkills) => {
-
-        return arrayOfSkills;
-
-    }
-
-    skill3 = (arrayOfSkills) => {
-
-        return arrayOfSkills;
-
-    }
-
-    skill4 = (arrayOfSkills) => {
-
-        return arrayOfSkills;
 
     }
 
