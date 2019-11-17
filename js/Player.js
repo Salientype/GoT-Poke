@@ -31,6 +31,23 @@ class Player {
 
     }
 
+    attack(skill, enemyPlayer) {
+
+        skill.power = skill.power * .10;
+        skill.pp = skill.pp * 2;
+        
+        if (this.getRandomInt(1, 100) > skill.accuracy) {
+
+            console.log("you missed");
+
+        } else {
+
+            console.log(`you hit ${enemyPlayer.name} for ${skill.power} damage, costing you ${skill.pp} mana points.`);
+
+        }
+
+    }
+
     async fetchData(url, callback) {
 
         let getRandomInt = this.getRandomInt;
