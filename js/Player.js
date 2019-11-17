@@ -1,12 +1,10 @@
 class Player {
 
-    constructor(name, title, gender) {
+    constructor() {
 
         this.hp = 1000;
         this.mp = 1000;
-        this.name = name;
-        this.title = title;
-        this.gender = gender;
+        this.name;
         this.skill_1;
         this.skill_2;
         this.skill_3;

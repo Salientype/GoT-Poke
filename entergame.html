@@ -155,6 +155,9 @@
     characterImages['Davos Seaworth'] = "img/Davos.jpg";
     characterImages['Sandor Clegane'] = "img/Sandor.jpg";
 
+    let humanPlayerName;
+    let machinePlayerName;
+
     $(document).ready(function () {
       document.getElementById("characterChooseButton").addEventListener("click", getData);
 
@@ -264,6 +267,10 @@
 
         document.getElementById("pcTitle").innerHTML = response[2].data[0].titles[0] || "Titleless";
         document.getElementById("randompcplayer").innerHTML = populateRandomPCGame;
+
+        playerHuman.name = formatValue;
+        playerMachine.name = randomPCNameValue;
+      
       });
       //Dismiss Modal
       document.getElementById("startGame").setAttribute("data-dismiss", "modal");

@@ -1,5 +1,5 @@
-const playerHuman = new Player('Frodo', 'hobbit', 'male');
-const playerMachine = new Player('Sauron', 'pure evil', 'andro');
+const playerHuman = new Player();
+const playerMachine = new Player();
 
 function addPlayerSkills(player, playerSkills, skillsContainer) {
 
@@ -37,6 +37,7 @@ function getPlayerSkills() {
 
     playerHuman.fetchData('https://pokeapi.co/api/v2/move-category/0/', function (playerSkills) {
 
+        console.log(playerHuman.name);
         let skillsContainer = document.getElementById('human-player-skills');
         addPlayerSkills(playerHuman, playerSkills, skillsContainer);
 
@@ -44,6 +45,7 @@ function getPlayerSkills() {
 
     playerMachine.fetchData('https://pokeapi.co/api/v2/move-category/0/', function (playerSkills) {
 
+        console.log(playerMachine.name);
         let skillsContainer = document.getElementById('machine-player-skills');
         addPlayerSkills(playerMachine, playerSkills, skillsContainer);
 
