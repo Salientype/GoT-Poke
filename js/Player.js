@@ -7,6 +7,10 @@ class Player {
         this.name = name;
         this.title = title;
         this.gender = gender;
+        this.skill_1;
+        this.skill_2;
+        this.skill_3;
+        this.skill_4;
 
     }
 
@@ -33,8 +37,8 @@ class Player {
 
     attack(skill, enemyPlayer) {
 
-        skill.power = skill.power * .10;
-        skill.pp = skill.pp * 2;
+        const skill_power = Math.ceil(skill.power * .20);
+        const skill_pp = Math.ceil(skill.pp * 2);
         
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
@@ -42,7 +46,7 @@ class Player {
 
         } else {
 
-            console.log(`you hit ${enemyPlayer.name} for ${skill.power} damage, costing you ${skill.pp} mana points.`);
+            console.log(`you hit ${enemyPlayer.name} for ${skill_power} damage, costing you ${skill_pp} mana points.`);
 
         }
 
