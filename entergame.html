@@ -22,7 +22,7 @@
   FIFTH - ALL DATA THEN WILL POPULATE INTO THE DATA YOU SEE BELOW WITH API QUOTE
   -->
   <div id="button-initiate-game" class="text-center">
-    <button type="button" class="btn btn-primary" data-toggle="modal" id="characterChooseButton"
+    <button type="button" class="btn btn-primary" data-toggle="modal" id="characterChooseButton" onclick="getPlayerSkills()"
       data-target="#pickCharacterModal" data-whatever="@getbootstrap">Choose Your Pokemon!</button>
   </div>
 
@@ -72,18 +72,18 @@
         <h4 id="pcTitle">Title</h4>
         <div class="progress health" style="width:100%">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">HP</div>
+            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">HP</div>
         </div>
         <div class="progress mana mb-20" style="width:100%">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
-            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">MP</div>
+            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">MP</div>
         </div>
         <blockquote class="blockquote text-center" style="width: 52%;margin-top: 127px;">
           <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
           <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
         </blockquote>
 
-        <div class="btn-group-vertical ml-auto moves-container" role="group" aria-label="Vertical button group">
+        <div id="machine-player-skills" class="btn-group-vertical ml-auto moves-container" role="group" aria-label="Vertical button group">
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
@@ -106,11 +106,11 @@
         <h4 id="regplayertitle">Title</h4>
         <div class="progress health" style="width:100%;">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">HP</div>
+            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">HP</div>
         </div>
         <div class="progress mana" style="width:100%">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
-            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%">MP</div>
+            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">MP</div>
         </div>
 
         <!--Populate User Data Game of Throne API THIS NEEDS TO BE REG PC HERE-->
@@ -118,7 +118,7 @@
         </div>
         <!-- END OF REG PC CARD HERE-->
 
-        <div class="btn-group-vertical moves-container" role="group" aria-label="Vertical button group">
+        <div id="human-player-skills" class="btn-group-vertical moves-container" role="group" aria-label="Vertical button group">
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
           <button type="button" class="btn btn-outline-primary btn-md">ATTACK 1</br>RED/BLUE/YELLOW</button>
