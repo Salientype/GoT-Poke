@@ -90,13 +90,17 @@ class Player {
         
         }
 
-        function checkForWin(value) {
+        function checkForZero(value) {
 
-            if(value < 0) {
+            if(value <= 0) {
     
+                return 0;
 
+             } else {
 
-            }
+                return value;
+
+             }
     
         }
 
@@ -119,8 +123,8 @@ class Player {
 
             console.log(currentEnemyHpBar - damage);
             console.log(skill_desc);
-            userMpBar.setAttribute("style", `width: ${currentEnemyHpBar - damage}%`)
-            enemyHpBar.setAttribute("style", `width: ${currentuserMpBar - mana}%`)
+            userMpBar.setAttribute("style", `width: ${checkForZero(currentuserMpBar - mana)}%`);
+            enemyHpBar.setAttribute("style", `width: ${checkForZero(currentEnemyHpBar - damage)}%`);
             descContainer.firstElementChild.innerText = skill_desc;
 
         }
