@@ -127,6 +127,12 @@ class Player {
             enemyHpBar.setAttribute("style", `width: ${checkForZero(currentEnemyHpBar - damage)}%`);
             descContainer.firstElementChild.innerText = skill_desc;
 
+            if (filterInt(enemyHpBar.getAttribute("style")) == 0 ) {
+
+                alert(`${userPlayer.name} has won!`);
+
+            };
+
         }
 
     }
