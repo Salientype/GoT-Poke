@@ -2,8 +2,8 @@ class Player {
 
     constructor() {
 
-        this.hp = 1000;
-        this.mp = 1000;
+        this.hp = 100;
+        this.mp = 100;
         this.name;
         this.skill_1;
         this.skill_2;
@@ -35,6 +35,9 @@ class Player {
 
     attack(skill, userPlayer, enemyPlayer) {
         
+        const skill_set = [];
+        skill_set.push(this.skill_1, this.skill_2, this.skill_3, this.skill_4);
+
         function getEnemyHpBar (player) {
             
             if (player == playerHuman) {
@@ -165,6 +168,36 @@ class Player {
             return filterInt(userMpBar.getAttribute("style"));
         
         }
+
+        function checkMana(manaPool, cost) {
+
+            if (cost > manaPool) {
+
+                let message = "You can only use these skills:";
+
+                skill_set.forEach(function(skill){
+
+                    if (Math.ceil(skill.pp * 2) <= manaPool) {
+
+                        message += ` [ ${skill.name} ]`;
+
+                    }
+
+                });
+
+                alert(message);
+
+                return false;
+
+            } else {
+
+                return true;
+
+            }
+
+        }
+
+        checkMana(currentUserMpBar(), mana);
         
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
