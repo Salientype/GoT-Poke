@@ -35,6 +35,34 @@ class Player {
 
     attack(skill, userPlayer, enemyPlayer) {
         
+        function getEnemyHpBar (player) {
+            
+            if (player == playerHuman) {
+
+                return document.getElementById('machine-health-bar');
+            
+            } else {
+
+                return document.getElementById('human-health-bar');
+            
+            }
+
+        }
+
+        function getUserMpBar (player) {
+            
+            if (player == playerHuman) {
+
+                return document.getElementById('human-mana-bar');
+            
+            } else {
+
+                return document.getElementById('machine-mana-bar');
+            
+            } 
+
+        }
+
         function getDescContainer(player) {
 
             if (player == playerHuman) {
@@ -55,11 +83,21 @@ class Player {
 
         }
 
+        function filterInt(value) {
+            
+            let num = value.slice(7, -1);
+            return Number(num);
+        
+        }
+
         const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
-        // console.log(document.getElementById('human-skill-desc').firstElementChild.innerText);
-        // const skill_power = Math.ceil(skill.power * .2);
-        // const skill_pp = Math.ceil(skill.pp * 2);
+        const enemyHpBar = getEnemyHpBar(userPlayer);
+        const userMpBar = getUserMpBar(userPlayer);
+        const damage = Math.ceil(skill.power * .2);
+        const mana = Math.ceil(skill.pp * 2);
+
+        const currentEnemyHpBar = filterInt(enemyHpBar.getAttribute("style"));
 
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
@@ -68,7 +106,9 @@ class Player {
 
         } else {
 
+            console.log(currentEnemyHpBar - damage);
             console.log(skill_desc);
+            enemyHpBar.setAttribute("style", `width: ${currentEnemyHpBar - damage}%`)
             descContainer.firstElementChild.innerText = skill_desc;
 
         }
