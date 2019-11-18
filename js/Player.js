@@ -33,19 +33,29 @@ class Player {
 
     }
 
-    attack(skill, enemyPlayer) {
+    attack(skill, userPlayer, enemyPlayer) {
 
         const skill_power = Math.ceil(skill.power * .20);
         const skill_pp = Math.ceil(skill.pp * 2);
         
+        function get_desc() {
+            
+            let desc = "";
+            desc = skill.desc.replace(/the user/i, userPlayer.name).replace(/the target/i, enemyPlayer.name);
+            return desc;
+
+        }
+
+        let skill_desc = get_desc();
+
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
             console.log("you missed");
 
         } else {
 
-            console.log(`you hit ${enemyPlayer.name} for ${skill_power} damage, costing you ${skill_pp} mana points.`);
-
+            // console.log(`you hit ${enemyPlayer.name} for ${skill_power} damage, costing you ${skill_pp} mana points.`);
+               console.log(skill_desc);
         }
 
     }
@@ -75,7 +85,7 @@ class Player {
                                 data.pp != null &&
                                 data.target.name == 'selected-pokemon') {
 
-                                skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp });
+                                skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp, desc: data.flavor_text_entries[2].flavor_text });
 
                             }
 
