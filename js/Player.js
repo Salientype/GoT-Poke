@@ -34,28 +34,43 @@ class Player {
     }
 
     attack(skill, userPlayer, enemyPlayer) {
+        
+        function getDescContainer(player) {
 
-        const skill_power = Math.ceil(skill.power * .20);
-        const skill_pp = Math.ceil(skill.pp * 2);
+            if (player == playerHuman) {
+
+                return document.getElementById('human-skill-desc');
+
+            } else {
+
+                return document.getElementById('machine-skill-desc')
+
+            }
+
+        }
         
         function get_desc() {
             
-            let desc = "";
-            desc = skill.desc.replace(/the user/ig, userPlayer.name).replace(/the target/ig, enemyPlayer.name);
-            return desc;
+            return skill.desc.replace(/the( |\n)user/ig, userPlayer.name).replace(/the( |\n)target/ig, enemyPlayer.name).replace(/its( |\n)target/ig, enemyPlayer.name).replace(/\n/ig, " ");
 
         }
 
-        let skill_desc = get_desc();
+        const skill_desc = get_desc();
+        const descContainer = getDescContainer(userPlayer);
+        // console.log(document.getElementById('human-skill-desc').firstElementChild.innerText);
+        // const skill_power = Math.ceil(skill.power * .2);
+        // const skill_pp = Math.ceil(skill.pp * 2);
 
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
             console.log(`${userPlayer.name}'s attack missed`);
+            descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
 
         } else {
 
-            // console.log(`you hit ${enemyPlayer.name} for ${skill_power} damage, costing you ${skill_pp} mana points.`);
-               console.log(skill_desc);
+            console.log(skill_desc);
+            descContainer.firstElementChild.innerText = skill_desc;
+
         }
 
     }
