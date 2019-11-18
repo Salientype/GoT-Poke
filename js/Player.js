@@ -111,27 +111,37 @@ class Player {
         const damage = Math.ceil(skill.power * .2);
         const mana = Math.ceil(skill.pp * 2);
 
-        const currentEnemyHpBar = filterInt(enemyHpBar.getAttribute("style"));
-        const currentuserMpBar = filterInt(userMpBar.getAttribute("style"));
+        const currentEnemyHpBar = function () {
+            
+            return filterInt(enemyHpBar.getAttribute("style"));
+        
+        }
+        
+        const currentUserMpBar = function () {
+            
+            return filterInt(userMpBar.getAttribute("style"));
+        
+        }
 
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
-            console.log(`${userPlayer.name}'s attack missed`);
             descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
 
         } else {
 
-            console.log(currentEnemyHpBar - damage);
-            console.log(skill_desc);
-            userMpBar.setAttribute("style", `width: ${checkForZero(currentuserMpBar - mana)}%`);
-            enemyHpBar.setAttribute("style", `width: ${checkForZero(currentEnemyHpBar - damage)}%`);
+            userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
+            enemyHpBar.setAttribute("style", `width: ${checkForZero(currentEnemyHpBar() - damage)}%`);
             descContainer.firstElementChild.innerText = skill_desc;
 
-            if (filterInt(enemyHpBar.getAttribute("style")) == 0 ) {
+            if (currentEnemyHpBar() == 0) {
 
                 alert(`${userPlayer.name} has won!`);
 
-            };
+            } else if (currentUserMpBar() == 0) {
+
+                alert(`${userPlayer.name} is out of Mana!`);
+
+            }
 
         }
 
