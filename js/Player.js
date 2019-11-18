@@ -121,6 +121,30 @@ class Player {
 
         }
 
+        function enableSkills(playerSkillsContainer) {
+
+            const buttonCollection = playerSkillsContainer.getElementsByTagName('button');
+            
+            for( let i = 0; i < buttonCollection.length; i++ ) {
+
+                buttonCollection[i].removeAttribute('disabled');
+
+            }
+            
+        }
+
+        function disableSkills(playerSkillsContainer) {
+
+            const buttonCollection = playerSkillsContainer.getElementsByTagName('button');
+            
+            for( let i = 0; i < buttonCollection.length; i++ ) {
+
+                buttonCollection[i].setAttribute('disabled', 'true');
+
+            }
+            
+        }
+
         const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
@@ -129,11 +153,6 @@ class Player {
         const mana = Math.ceil(skill.pp * 2);
         const userSkillsContainer = assignSkillsContainer(userPlayer);
         const enemySkillsContainer = assignSkillsContainer(enemyPlayer);
-        const userSkills = userSkillsContainer.getElementsByTagName('button');
-        const enemySkills = enemySkillsContainer.getElementsByTagName('button');
-
-        console.log(userSkills);
-        console.log(enemySkills);
 
         const currentEnemyHpBar = function () {
             
@@ -146,20 +165,25 @@ class Player {
             return filterInt(userMpBar.getAttribute("style"));
         
         }
-
+        
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
             descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
+            disableSkills(userSkillsContainer);
+            enableSkills(enemySkillsContainer);
 
         } else {
 
             userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
             enemyHpBar.setAttribute("style", `width: ${checkForZero(currentEnemyHpBar() - damage)}%`);
             descContainer.firstElementChild.innerText = skill_desc;
+            disableSkills(userSkillsContainer);
+            enableSkills(enemySkillsContainer);
 
             if (currentEnemyHpBar() == 0) {
 
                 alert(`${userPlayer.name} has won!`);
+
 
             } else if (currentUserMpBar() == 0) {
 
