@@ -41,7 +41,7 @@ class Player {
         function get_desc() {
             
             let desc = "";
-            desc = skill.desc.replace(/the user/i, userPlayer.name).replace(/the target/i, enemyPlayer.name);
+            desc = skill.desc.replace(/the user/ig, userPlayer.name).replace(/the target/ig, enemyPlayer.name);
             return desc;
 
         }
@@ -50,7 +50,7 @@ class Player {
 
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
-            console.log("you missed");
+            console.log(`${userPlayer.name}'s attack missed`);
 
         } else {
 
