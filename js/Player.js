@@ -104,12 +104,34 @@ class Player {
     
         }
 
+        function assignSkillsContainer (player) {
+
+            const humanSkillsContainer = document.getElementById('human-player-skills');
+            const machineSkillsContainer = document.getElementById('machine-player-skills');
+
+            if (player == playerHuman) {
+
+                return humanSkillsContainer;
+
+            } else if (player == playerMachine) {
+
+                return machineSkillsContainer;
+
+            }
+
+        }
+
         const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
         const damage = Math.ceil(skill.power * .2);
         const mana = Math.ceil(skill.pp * 2);
+        const userSkillsContainer = assignSkillsContainer(userPlayer);
+        const enemySkillsContainer = assignSkillsContainer(enemyPlayer);
+
+        console.log(userSkillsContainer);
+        console.log(enemySkillsContainer);
 
         const currentEnemyHpBar = function () {
             
