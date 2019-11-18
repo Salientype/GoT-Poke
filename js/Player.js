@@ -90,6 +90,16 @@ class Player {
         
         }
 
+        function checkForWin(value) {
+
+            if(value < 0) {
+    
+
+
+            }
+    
+        }
+
         const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
@@ -98,6 +108,7 @@ class Player {
         const mana = Math.ceil(skill.pp * 2);
 
         const currentEnemyHpBar = filterInt(enemyHpBar.getAttribute("style"));
+        const currentuserMpBar = filterInt(userMpBar.getAttribute("style"));
 
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
@@ -108,7 +119,8 @@ class Player {
 
             console.log(currentEnemyHpBar - damage);
             console.log(skill_desc);
-            enemyHpBar.setAttribute("style", `width: ${currentEnemyHpBar - damage}%`)
+            userMpBar.setAttribute("style", `width: ${currentEnemyHpBar - damage}%`)
+            enemyHpBar.setAttribute("style", `width: ${currentuserMpBar - mana}%`)
             descContainer.firstElementChild.innerText = skill_desc;
 
         }
