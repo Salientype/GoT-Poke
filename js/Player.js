@@ -129,9 +129,11 @@ class Player {
         const mana = Math.ceil(skill.pp * 2);
         const userSkillsContainer = assignSkillsContainer(userPlayer);
         const enemySkillsContainer = assignSkillsContainer(enemyPlayer);
+        const userSkills = userSkillsContainer.getElementsByTagName('button');
+        const enemySkills = enemySkillsContainer.getElementsByTagName('button');
 
-        console.log(userSkillsContainer);
-        console.log(enemySkillsContainer);
+        console.log(userSkills);
+        console.log(enemySkills);
 
         const currentEnemyHpBar = function () {
             
