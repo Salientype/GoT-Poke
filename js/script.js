@@ -1,6 +1,20 @@
 const playerHuman = new Player();
 const playerMachine = new Player();
 
+function resetPlayerBars() {
+
+    const playerHumanHpBar = document.getElementById('human-health-bar');
+    const playerHumanMpBar = document.getElementById('human-mana-bar');
+    const playerMachineHpBar = document.getElementById('machine-health-bar');
+    const playerMachineMpBar = document.getElementById('machine-mana-bar');
+
+    playerHumanHpBar.setAttribute('style', "width: 100%");
+    playerHumanMpBar.setAttribute('style', "width: 100%");
+    playerMachineHpBar.setAttribute('style', "width: 100%");
+    playerMachineMpBar.setAttribute('style', "width: 100%");
+
+}
+
 function addPlayerSkills(player, playerSkills, skillsContainer) {
 
     player.skill_1 = playerSkills[0];
@@ -35,6 +49,8 @@ function addPlayerSkills(player, playerSkills, skillsContainer) {
 
 function getPlayerSkills() {
 
+    resetPlayerBars();
+    
     playerHuman.fetchData('https://pokeapi.co/api/v2/move-category/0/', function (playerSkills) {
 
         console.log(playerHuman.name);

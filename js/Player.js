@@ -169,6 +169,7 @@ class Player {
         if (this.getRandomInt(1, 100) > skill.accuracy) {
 
             descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
+            userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
             disableSkills(userSkillsContainer);
             enableSkills(enemySkillsContainer);
 
