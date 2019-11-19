@@ -30,20 +30,28 @@ function addPlayerSkills(player, playerSkills, skillsContainer) {
         userPlayer = "playerHuman";
         enemyPlayer = "playerMachine";
 
+        skillsContainer.innerHTML = `
+        <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_1, ${userPlayer}, ${enemyPlayer})">${player.skill_1.name}</br>${player.skill_1.power}/${player.skill_1.pp}/${player.skill_1.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_2, ${userPlayer}, ${enemyPlayer})">${player.skill_2.name}</br>${player.skill_2.power}/${player.skill_2.pp}/${player.skill_2.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_3, ${userPlayer}, ${enemyPlayer})">${player.skill_3.name}</br>${player.skill_3.power}/${player.skill_3.pp}/${player.skill_3.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_4, ${userPlayer}, ${enemyPlayer})">${player.skill_4.name}</br>${player.skill_4.power}/${player.skill_4.pp}/${player.skill_4.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md">RUN</button>
+        `
+
     } else {
 
         userPlayer = "playerMachine";
         enemyPlayer = "playerHuman";
 
-    }
+        skillsContainer.innerHTML = `
+        <button type="button" class="btn btn-outline-primary btn-md" disabled="true">${player.skill_1.name}</br>${player.skill_1.power}/${player.skill_1.pp}/${player.skill_1.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" disabled="true">${player.skill_2.name}</br>${player.skill_2.power}/${player.skill_2.pp}/${player.skill_2.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" disabled="true">${player.skill_3.name}</br>${player.skill_3.power}/${player.skill_3.pp}/${player.skill_3.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" disabled="true">${player.skill_4.name}</br>${player.skill_4.power}/${player.skill_4.pp}/${player.skill_4.accuracy}</button>
+        <button type="button" class="btn btn-outline-primary btn-md" disabled="true">RUN</button>
+        `
 
-    skillsContainer.innerHTML = `
-    <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_1, ${userPlayer}, ${enemyPlayer})">${player.skill_1.name}</br>${player.skill_1.power}/${player.skill_1.pp}/${player.skill_1.accuracy}</button>
-    <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_2, ${userPlayer}, ${enemyPlayer})">${player.skill_2.name}</br>${player.skill_2.power}/${player.skill_2.pp}/${player.skill_2.accuracy}</button>
-    <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_3, ${userPlayer}, ${enemyPlayer})">${player.skill_3.name}</br>${player.skill_3.power}/${player.skill_3.pp}/${player.skill_3.accuracy}</button>
-    <button type="button" class="btn btn-outline-primary btn-md" onclick="${userPlayer}.attack(${userPlayer}.skill_4, ${userPlayer}, ${enemyPlayer})">${player.skill_4.name}</br>${player.skill_4.power}/${player.skill_4.pp}/${player.skill_4.accuracy}</button>
-    <button type="button" class="btn btn-outline-primary btn-md">RUN</button>
-    `
+    }
 
 }
 

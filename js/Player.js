@@ -327,7 +327,7 @@ class Player {
 
                     callback(playerSkills);
 
-                }, 4000);
+                }, 5000);
 
             });
 
