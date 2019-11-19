@@ -231,6 +231,8 @@ class Player {
                 if (currentEnemyHpBar() == 0) {
 
                     alert(`${userPlayer.name} has won!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
 
                 } else if (currentUserMpBar() == 0) {
 

@@ -38,7 +38,7 @@ function addPlayerSkills(player, playerSkills, skillsContainer) {
         <button type="button" class="btn btn-outline-primary btn-md">RUN</button>
         `
 
-    } else {
+    } else if (player == playerMachine) {
 
         userPlayer = "playerMachine";
         enemyPlayer = "playerHuman";
