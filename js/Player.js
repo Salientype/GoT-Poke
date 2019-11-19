@@ -210,13 +210,13 @@ class Player {
 
                 if (message == `${userPlayer.name} can only use these skills:`) {
 
-                    if (userHpBar > enemyHpBar) {
+                    if (currentUserHpBar() > currentEnemyHpBar()) {
 
                         message = `${userPlayer.name} cannot use any skills! ${userPlayer.name} has won!`;
                         disableSkills(userSkillsContainer);
                         disableSkills(enemySkillsContainer);
 
-                    } else if (enemyHpBar > userHpBar) {
+                    } else if (currentEnemyHpBar() > currentUserHpBar()) {
 
                         message = `${userPlayer.name} cannot use any skills! ${enemyPlayer.name} has won!`;
                         disableSkills(userSkillsContainer);
