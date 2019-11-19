@@ -247,7 +247,7 @@ class Player {
             if (userPlayer == playerHuman) {
                     
                 const skillNum = getRandomInt(0,3);
-                setTimeout(function () { enemyPlayer.machineAttack(skillNum); }, 2000);
+                setTimeout(function () { enemyPlayer.machineAttack(skillNum); }, 2500);
 
             }
 
@@ -311,6 +311,8 @@ class Player {
                 enableSkills(enemySkillsContainer);
 
                 checkManaBar();
+
+                checkForWin();
                 
                 enemyAttack();
 
