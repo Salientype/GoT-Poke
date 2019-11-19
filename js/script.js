@@ -1,5 +1,5 @@
 const playerHuman = new Player();
-const playerMachine = new Player();
+const playerMachine = new Machine();
 
 function resetPlayerBars() {
 

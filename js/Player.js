@@ -35,7 +35,6 @@ class Player {
     
     attack(playerSkill, userPlayer, enemyPlayer) {
 
-        const machineAttack = this.machineAttack;
         const getRandomInt = this.getRandomInt;
         const skill = playerSkill;
         const skill_set = [];
@@ -208,6 +207,12 @@ class Player {
                 userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
+                
+                if (userPlayer == playerHuman) {
+                    
+                    playerMachine.machineAttack();
+                    
+                }
 
             } else {
 
@@ -224,6 +229,12 @@ class Player {
                 } else if (currentUserMpBar() == 0) {
 
                     alert(`${userPlayer.name} is out of Mana!`);
+
+                }
+
+                if (userPlayer == playerHuman) {
+                    
+                    playerMachine.machineAttack();
 
                 }
 
