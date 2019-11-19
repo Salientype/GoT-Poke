@@ -96,7 +96,7 @@ class Player {
 
         }
 
-        function get_desc(skill) {
+        function get_desc() {
 
             return skill.desc.replace(/the( |\n)user/ig, userPlayer.name).replace(/the( |\n)target/ig, enemyPlayer.name).replace(/its( |\n)target/ig, enemyPlayer.name).replace(/\n/ig, " ");
 
@@ -164,7 +164,7 @@ class Player {
 
         }
 
-        const skill_desc = get_desc(skill);
+        const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
@@ -210,17 +210,15 @@ class Player {
 
                 if (message == `${userPlayer.name} can only use these skills:`) {
 
-                    message = `${userPlayer.name} does not have enough mana for any skills!`;
-
                     if (userHpBar > enemyHpBar) {
 
-                        alert(`${userPlayer.name} has won!`);
+                        message = `${userPlayer.name} cannot use any skills! ${userPlayer.name} has won!`;
                         disableSkills(userSkillsContainer);
                         disableSkills(enemySkillsContainer);
 
                     } else if (enemyHpBar > userHpBar) {
 
-                        alert(`${enemyPlayer.name} has won!`);
+                        message = `${userPlayer.name} cannot use any skills! ${enemyPlayer.name} has won!`;
                         disableSkills(userSkillsContainer);
                         disableSkills(enemySkillsContainer);
 
@@ -228,7 +226,11 @@ class Player {
 
                 }
 
-                alert(message);
+                if (userPlayer == playerHuman) {
+                    
+                    alert(message);
+                
+                }
 
                 return false;
 
@@ -242,11 +244,10 @@ class Player {
         
         function enemyAttack() {
             
-            const skillNum = getRandomInt(0,3);
-            
             if (userPlayer == playerHuman) {
                     
-                setTimeout(function () { playerMachine.machineAttack(skillNum); }, 2000);
+                const skillNum = getRandomInt(0,3);
+                setTimeout(function () { enemyPlayer.machineAttack(skillNum); }, 2000);
 
             }
 
@@ -258,19 +259,27 @@ class Player {
 
                 alert(`${userPlayer.name} is out of Mana!`);
 
+                if (currentEnemyHpBar() > currentUserHpBar()) {
+
+                    alert(`${userPlayer.name} has Won!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
+    
+                }
+
             }
             
         }
 
         function checkForWin () {
 
-            if (currentEnemyHpBar() == 0) {
+            if (currentEnemyHpBar() <= 0) {
 
                 alert(`${userPlayer.name} has won!`);
                 disableSkills(userSkillsContainer);
                 disableSkills(enemySkillsContainer);
 
-            } else if (currentUserHpBar() == 0) {
+            } else if (currentUserHpBar() <= 0) {
 
                 alert(`${enemyPlayer.name} has won!`);
                 disableSkills(userSkillsContainer);
@@ -284,8 +293,8 @@ class Player {
 
             if (getRandomInt(1, 100) > skill.accuracy) {
 
-                descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
                 userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
+                descContainer.firstElementChild.innerText = `${userPlayer.name}'s attack missed`;
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
 
@@ -301,9 +310,9 @@ class Player {
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
 
-                checkForWin();
-
                 checkManaBar();
+
+                checkForWin();
 
                 enemyAttack();
 
@@ -331,7 +340,7 @@ class Player {
 
             } else if (usableSkills.length == 0) {
 
-                alert(`${userPlayer.name} does not have enough mana for any skills!`);
+                checkForWin();
 
             }
 
@@ -422,7 +431,7 @@ class Player {
 
                     callback(playerSkills);
 
-                }, 6000);
+                }, 5000);
 
             });
 
