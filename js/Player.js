@@ -259,12 +259,24 @@ class Player {
 
                 alert(`${userPlayer.name} is out of Mana!`);
 
-                if (currentEnemyHpBar() > currentUserHpBar()) {
+                if (currentEnemyHpBar() < currentUserHpBar()) {
 
                     alert(`${userPlayer.name} has Won!`);
                     disableSkills(userSkillsContainer);
                     disableSkills(enemySkillsContainer);
     
+                } else if (currentEnemyHpBar() > currentUserHpBar()) {
+
+                    alert(`${enemyPlayer.name} has Won!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
+
+                } else {
+
+                    alert(`${userPlayer.name} and ${enemyPlayer.name} are Tied!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
+
                 }
 
             }
