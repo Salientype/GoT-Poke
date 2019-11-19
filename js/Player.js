@@ -82,7 +82,7 @@ class Player {
 
         }
 
-        function get_desc(skill) {
+        function get_desc() {
 
             return skill.desc.replace(/the( |\n)user/ig, userPlayer.name).replace(/the( |\n)target/ig, enemyPlayer.name).replace(/its( |\n)target/ig, enemyPlayer.name).replace(/\n/ig, " ");
 
@@ -150,7 +150,7 @@ class Player {
 
         }
 
-        const skill_desc = get_desc(skill);
+        const skill_desc = get_desc();
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
@@ -327,7 +327,7 @@ class Player {
 
                     callback(playerSkills);
 
-                }, 5000);
+                }, 6000);
 
             });
 
