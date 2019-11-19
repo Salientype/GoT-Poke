@@ -31,11 +31,13 @@ class Player {
 
         return response;
 
-    }
+    }   
+    
+    attack(playerSkill, userPlayer, enemyPlayer) {
 
-    attack(skill, userPlayer, enemyPlayer) {
-
+        const machineAttack = this.machineAttack;
         const getRandomInt = this.getRandomInt;
+        const skill = playerSkill;
         const skill_set = [];
         skill_set.push(this.skill_1, this.skill_2, this.skill_3, this.skill_4);
 
@@ -81,7 +83,7 @@ class Player {
 
         }
 
-        function get_desc() {
+        function get_desc(skill) {
 
             return skill.desc.replace(/the( |\n)user/ig, userPlayer.name).replace(/the( |\n)target/ig, enemyPlayer.name).replace(/its( |\n)target/ig, enemyPlayer.name).replace(/\n/ig, " ");
 
@@ -149,7 +151,7 @@ class Player {
 
         }
 
-        const skill_desc = get_desc();
+        const skill_desc = get_desc(skill);
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
@@ -196,7 +198,7 @@ class Player {
 
             }
 
-        }
+        } 
 
         if (checkMana(currentUserMpBar(), mana) == true) {
 
@@ -231,91 +233,91 @@ class Player {
 
     };
 
-async fetchData(url, callback) {
+    async fetchData(url, callback) {
 
-    let getRandomInt = this.getRandomInt;
-    const handleErrors = this.handleErrors;
-    let skillsArray = [];
-    let playerSkills = [];
+        let getRandomInt = this.getRandomInt;
+        const handleErrors = this.handleErrors;
+        let skillsArray = [];
+        let playerSkills = [];
 
-    await fetch(url)
-        .then(handleErrors)
-        .then(response => response.json())
-        .then(response => response.moves)
-        .then(listOfMoves => {
+        await fetch(url)
+            .then(handleErrors)
+            .then(response => response.json())
+            .then(response => response.moves)
+            .then(listOfMoves => {
 
-            listOfMoves.forEach(async function (move) {
-                await fetch(move.url)
-                    .then(handleErrors)
-                    .then(response => response.json())
-                    .then(data => {
+                listOfMoves.forEach(async function (move) {
+                    await fetch(move.url)
+                        .then(handleErrors)
+                        .then(response => response.json())
+                        .then(data => {
 
-                        if (data.accuracy != null &&
-                            data.accuracy != 100 &&
-                            data.power != null &&
-                            data.pp != null &&
-                            data.target.name == 'selected-pokemon') {
+                            if (data.accuracy != null &&
+                                data.accuracy != 100 &&
+                                data.power != null &&
+                                data.pp != null &&
+                                data.target.name == 'selected-pokemon') {
 
-                            skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp, desc: data.flavor_text_entries[2].flavor_text });
+                                skillsArray.push({ name: data.names[2].name, accuracy: data.accuracy, power: data.power, pp: data.pp, desc: data.flavor_text_entries[2].flavor_text });
 
-                        }
-
-                    });
-
-            });
-
-            setTimeout(function () {
-
-                function getNewSkill() {
-
-                    return skillsArray[getRandomInt(0, skillsArray.length - 1)];
-
-                }
-
-                function killSkillDuplicate(skillFromPool, newSkill) {
-
-                    if (skillFromPool != newSkill) {
-
-                        return newSkill;
-
-                    } else {
-
-                        console.log("found duplicate");
-                        newSkill = getNewSkill();
-                        return killSkillDuplicate(skillFromPool, newSkill);
-
-                    }
-
-                }
-
-                for (let i = 0; i < 4; i++) {
-
-                    let selectedSkill = skillsArray[getRandomInt(0, skillsArray.length)];
-
-                    if (playerSkills.length != 0) {
-
-                        playerSkills.forEach(function (skill) {
-
-                            selectedSkill = killSkillDuplicate(skill, selectedSkill);
+                            }
 
                         });
 
-                        playerSkills.push(selectedSkill);
+                });
 
-                    } else {
+                setTimeout(function () {
 
-                        playerSkills.push(selectedSkill);
+                    function getNewSkill() {
+
+                        return skillsArray[getRandomInt(0, skillsArray.length - 1)];
 
                     }
 
-                }
+                    function killSkillDuplicate(skillFromPool, newSkill) {
 
-                callback(playerSkills);
+                        if (skillFromPool != newSkill) {
 
-            }, 4000);
+                            return newSkill;
 
-        });
+                        } else {
 
-}
+                            console.log("found duplicate");
+                            newSkill = getNewSkill();
+                            return killSkillDuplicate(skillFromPool, newSkill);
+
+                        }
+
+                    }
+
+                    for (let i = 0; i < 4; i++) {
+
+                        let selectedSkill = skillsArray[getRandomInt(0, skillsArray.length)];
+
+                        if (playerSkills.length != 0) {
+
+                            playerSkills.forEach(function (skill) {
+
+                                selectedSkill = killSkillDuplicate(skill, selectedSkill);
+
+                            });
+
+                            playerSkills.push(selectedSkill);
+
+                        } else {
+
+                            playerSkills.push(selectedSkill);
+
+                        }
+
+                    }
+
+                    callback(playerSkills);
+
+                }, 4000);
+
+            });
+
+    };
 
 }
