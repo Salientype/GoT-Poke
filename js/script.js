@@ -78,9 +78,6 @@ function getPlayerSkills() {
 }
 
 
-//setTimeout(function(){ console.log(playerHuman.skill_1); }, 5000);
-
-
 
 
 

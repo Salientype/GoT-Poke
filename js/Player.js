@@ -297,12 +297,7 @@ class Player {
                 disableSkills(userSkillsContainer);
                 disableSkills(enemySkillsContainer);
 
-            } else {
-
-                enemyAttack();
-            
             }
-
 
         }
 
@@ -319,6 +314,8 @@ class Player {
 
                 checkForWin();
 
+                enemyAttack();
+
             } else {
 
                 userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
@@ -330,6 +327,8 @@ class Player {
                 checkManaBar();
 
                 checkForWin();
+
+                enemyAttack();
 
             }
 
@@ -355,19 +354,7 @@ class Player {
 
             } else if (usableSkills.length == 0) {
 
-                if (currentEnemyHpBar() <= 0) {
-
-                    alert(`${userPlayer.name} has won!`);
-                    disableSkills(userSkillsContainer);
-                    disableSkills(enemySkillsContainer);
-    
-                } else if (currentUserHpBar() <= 0) {
-    
-                    alert(`${enemyPlayer.name} has won!`);
-                    disableSkills(userSkillsContainer);
-                    disableSkills(enemySkillsContainer);
-    
-                }
+                checkForWin();
 
             }
         
@@ -456,7 +443,7 @@ class Player {
 
                     callback(playerSkills);
 
-                }, 5000);
+                }, 6000);
 
             });
 
