@@ -326,10 +326,10 @@ class Player {
 
             if (usableSkills.length != 0) {
 
-                selectedSkill = getRandomInt(0, usableSkills.length);
-                setTimeout(function () { playerMachine.machineAttack(selectedSkill); }, 1000);
+                selectedSkill = getRandomInt(0, (usableSkills.length - 1));
+                setTimeout(function () { playerMachine.machineAttack(usableSkills[selectedSkill]); }, 1000);
 
-            } else {
+            } else if (usableSkills.length == 0) {
 
                 alert(`${userPlayer.name} does not have enough mana for any skills!`);
 
