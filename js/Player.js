@@ -197,7 +197,17 @@ class Player {
 
             }
 
-        } 
+        }
+        
+        function enemyAttack() {
+
+            if (userPlayer == playerHuman) {
+                    
+                setTimeout(function () { playerMachine.machineAttack(); }, 2000);
+
+            }
+
+        }
 
         if (checkMana(currentUserMpBar(), mana) == true) {
 
@@ -208,11 +218,7 @@ class Player {
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
                 
-                if (userPlayer == playerHuman) {
-                    
-                    playerMachine.machineAttack();
-                    
-                }
+                enemyAttack();
 
             } else {
 
@@ -232,11 +238,7 @@ class Player {
 
                 }
 
-                if (userPlayer == playerHuman) {
-                    
-                    playerMachine.machineAttack();
-
-                }
+                enemyAttack();
 
             }
 
