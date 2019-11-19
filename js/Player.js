@@ -36,7 +36,7 @@ class Player {
     attack(playerSkill, userPlayer, enemyPlayer) {
 
         const getRandomInt = this.getRandomInt;
-        const skill = playerSkill;
+        let skill = playerSkill;
         const skill_set = [];
         skill_set.push(this.skill_1, this.skill_2, this.skill_3, this.skill_4);
 
