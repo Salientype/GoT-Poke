@@ -68,6 +68,20 @@ class Player {
 
         }
 
+        function getUserHpBar(player) {
+
+            if (player == playerHuman) {
+
+                return document.getElementById('human-health-bar');
+
+            } else {
+
+                return document.getElementById('machine-health-bar');
+
+            }
+
+        }
+
         function getDescContainer(player) {
 
             if (player == playerHuman) {
@@ -154,6 +168,7 @@ class Player {
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
+        const userHpBar = getUserHpBar(userPlayer);
         const damage = Math.ceil(skill.power * .2);
         const mana = Math.ceil(skill.pp * 2);
         const userSkillsContainer = assignSkillsContainer(userPlayer);
@@ -168,6 +183,12 @@ class Player {
         const currentUserMpBar = function () {
 
             return filterInt(userMpBar.getAttribute("style"));
+
+        }
+
+        const currentUserHpBar = function () {
+
+            return filterInt(userHpBar.getAttribute("style"));
 
         }
 
@@ -191,6 +212,20 @@ class Player {
 
                     message = `${userPlayer.name} does not have enough mana for any skills!`;
 
+                    if (userHpBar > enemyHpBar) {
+
+                        alert(`${userPlayer.name} has won!`);
+                        disableSkills(userSkillsContainer);
+                        disableSkills(enemySkillsContainer);
+
+                    } else if (enemyHpBar > userHpBar) {
+
+                        alert(`${enemyPlayer.name} has won!`);
+                        disableSkills(userSkillsContainer);
+                        disableSkills(enemySkillsContainer);
+
+                    }
+
                 }
 
                 alert(message);
@@ -206,10 +241,12 @@ class Player {
         }
         
         function enemyAttack() {
-
+            
+            const skillNum = getRandomInt(0,3);
+            
             if (userPlayer == playerHuman) {
                     
-                setTimeout(function () { playerMachine.machineAttack(); }, 2000);
+                setTimeout(function () { playerMachine.machineAttack(skillNum); }, 2000);
 
             }
 
@@ -230,6 +267,12 @@ class Player {
             if (currentEnemyHpBar() == 0) {
 
                 alert(`${userPlayer.name} has won!`);
+                disableSkills(userSkillsContainer);
+                disableSkills(enemySkillsContainer);
+
+            } else if (currentUserHpBar() == 0) {
+
+                alert(`${enemyPlayer.name} has won!`);
                 disableSkills(userSkillsContainer);
                 disableSkills(enemySkillsContainer);
 
@@ -266,6 +309,34 @@ class Player {
 
             }
 
+        } else if (userPlayer != playerHuman) { 
+            
+            const usableSkills = []
+            let selectedSkill;
+            
+            skill_set.forEach( function(skill) {
+
+                if (checkMana(currentUserMpBar(), Math.ceil(skill.pp * 2)) == true) {
+
+                    usableSkills.push(skill);
+
+                }
+
+            });
+
+            if (usableSkills.length != 0) {
+
+                selectedSkill = getRandomInt(0, usableSkills.length);
+                setTimeout(function () { playerMachine.machineAttack(selectedSkill); }, 1000);
+
+            } else {
+
+                alert(`${userPlayer.name} does not have enough mana for any skills!`);
+
+            }
+
+            
+        
         }
 
     };
