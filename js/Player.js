@@ -297,7 +297,12 @@ class Player {
                 disableSkills(userSkillsContainer);
                 disableSkills(enemySkillsContainer);
 
+            } else {
+
+                enemyAttack();
+            
             }
+
 
         }
 
@@ -313,8 +318,6 @@ class Player {
                 checkManaBar();
 
                 checkForWin();
-                
-                enemyAttack();
 
             } else {
 
@@ -327,8 +330,6 @@ class Player {
                 checkManaBar();
 
                 checkForWin();
-
-                enemyAttack();
 
             }
 
@@ -354,11 +355,21 @@ class Player {
 
             } else if (usableSkills.length == 0) {
 
-                checkForWin();
+                if (currentEnemyHpBar() <= 0) {
+
+                    alert(`${userPlayer.name} has won!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
+    
+                } else if (currentUserHpBar() <= 0) {
+    
+                    alert(`${enemyPlayer.name} has won!`);
+                    disableSkills(userSkillsContainer);
+                    disableSkills(enemySkillsContainer);
+    
+                }
 
             }
-
-            
         
         }
 
