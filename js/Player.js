@@ -82,7 +82,7 @@ class Player {
 
         }
 
-        function get_desc() {
+        function get_desc(skill) {
 
             return skill.desc.replace(/the( |\n)user/ig, userPlayer.name).replace(/the( |\n)target/ig, enemyPlayer.name).replace(/its( |\n)target/ig, enemyPlayer.name).replace(/\n/ig, " ");
 
@@ -150,7 +150,7 @@ class Player {
 
         }
 
-        const skill_desc = get_desc();
+        const skill_desc = get_desc(skill);
         const descContainer = getDescContainer(userPlayer);
         const enemyHpBar = getEnemyHpBar(userPlayer);
         const userMpBar = getUserMpBar(userPlayer);
@@ -175,7 +175,7 @@ class Player {
 
             if (cost > manaPool) {
 
-                let message = "You can only use these skills:";
+                let message = `${userPlayer.name} can only use these skills:`;
 
                 skill_set.forEach(function (skill) {
 
@@ -186,6 +186,12 @@ class Player {
                     }
 
                 });
+
+                if (message == `${userPlayer.name} can only use these skills:`) {
+
+                    message = `${userPlayer.name} does not have enough mana for any skills!`;
+
+                }
 
                 alert(message);
 
@@ -209,6 +215,28 @@ class Player {
 
         }
 
+        function checkManaBar () {
+
+            if (currentUserMpBar() == 0) {
+
+                alert(`${userPlayer.name} is out of Mana!`);
+
+            }
+            
+        }
+
+        function checkForWin () {
+
+            if (currentEnemyHpBar() == 0) {
+
+                alert(`${userPlayer.name} has won!`);
+                disableSkills(userSkillsContainer);
+                disableSkills(enemySkillsContainer);
+
+            }
+
+        }
+
         if (checkMana(currentUserMpBar(), mana) == true) {
 
             if (getRandomInt(1, 100) > skill.accuracy) {
@@ -217,6 +245,8 @@ class Player {
                 userMpBar.setAttribute("style", `width: ${checkForZero(currentUserMpBar() - mana)}%`);
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
+
+                checkManaBar();
                 
                 enemyAttack();
 
@@ -228,17 +258,9 @@ class Player {
                 disableSkills(userSkillsContainer);
                 enableSkills(enemySkillsContainer);
 
-                if (currentEnemyHpBar() == 0) {
+                checkForWin();
 
-                    alert(`${userPlayer.name} has won!`);
-                    disableSkills(userSkillsContainer);
-                    disableSkills(enemySkillsContainer);
-
-                } else if (currentUserMpBar() == 0) {
-
-                    alert(`${userPlayer.name} is out of Mana!`);
-
-                }
+                checkManaBar();
 
                 enemyAttack();
 
